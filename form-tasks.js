@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App(){
   const [input, setInput] = useState('')
@@ -7,6 +7,18 @@ function App(){
     'Estudar react',
   ]) 
 
+  useEffect(()=>{
+    const tasksStorage = localStorage.getItem('@task')
+
+    if(tasksStorage){
+      setTasks(JSON.parse(tasksStorage))
+    }
+
+  }, [])
+
+  useEffect(()=>{
+    localStorage.setItem('@task', JSON.stringify(tasks))
+  }, [tasks])
 
   function handleRegister(e){
     e.preventDefault();
